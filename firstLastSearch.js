@@ -44,3 +44,32 @@ const bSearch = function (nums, target) {
     }
   }
 }
+
+// iteratively instead of recursively
+var searchRange = function (nums, target) {
+  return bSearch(nums, target)
+}
+
+// without recursion
+const bSearch = function (nums, target) {
+  let begin = 0
+  let end = nums.length
+  let results = [-1, -1]
+  while (begin < end) {
+    const mid = Math.floor((begin + end) / 2)
+    if (nums[mid] === target) {
+      // keep searching left if...
+      if (mid == begin || nums[mid - 1] != target) {
+        return [mid] //mid is minimum idx of target
+      } else {
+
+      }
+    }
+    if (nums[mid] < target) {
+      begin = mid + 1
+    } else {
+      end = mid
+    }
+  }
+  return [-1, -1]
+}
