@@ -45,31 +45,47 @@ const bSearch = function (nums, target) {
   }
 }
 
-// iteratively instead of recursively
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+
 var searchRange = function (nums, target) {
-  return bSearch(nums, target)
+  const firstIdx = findBound(nums, target, true)
+  if (firstIdx === -1) return ([-1, -1])
+  return [firstIdx, findBound(nums, target, false)]
 }
 
 // without recursion
-const bSearch = function (nums, target) {
+const findBound = function (nums, target, isFirst) {
   let begin = 0
   let end = nums.length
   let results = [-1, -1]
-  while (begin < end) {
+  if (nums.length === 0) return -1
+  while (begin <= end) {
     const mid = Math.floor((begin + end) / 2)
     if (nums[mid] === target) {
       // keep searching left if...
-      if (mid == begin || nums[mid - 1] != target) {
-        return [mid] //mid is minimum idx of target
+      if (isFirst) {
+        if (mid === begin || nums[mid - 1] !== target) {
+          return mid //mid is minimum idx of target
+        } else {
+          end = mid - 1
+        }
       } else {
-
+        if (mid === end || nums[mid + 1] != target) {
+          return mid
+        } else {
+          begin = mid + 1
+        }
       }
     }
-    if (nums[mid] < target) {
+    if (nums[mid] < target || nums[mid] === undefined) {
       begin = mid + 1
-    } else {
-      end = mid
+    } else if (nums[mid] > target) {
+      end = mid - 1
     }
   }
-  return [-1, -1]
+  return -1
 }
