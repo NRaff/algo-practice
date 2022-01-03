@@ -17,28 +17,48 @@ var search = function (nums, target) {
   if (first > last) {
     minIdx = minSearch(nums)
   }
+  // console.log(minIdx)
   const left = nums.slice(minIdx, nums.length)
   const right = nums.slice(0, minIdx)
-  console.log(minIdx)
-  console.log(left)
-  console.log(right)
-  const leftSearch = bSearch(left, target)
-  if (leftSearch === -1) {
-    const rightSearch = bSearch(right, target)
-    if (rightSearch === -1) {
-      return -1
-    } else {
-      return rightSearch
-    }
+  // console.log(left)
+  // console.log(right)
+  if (target > left[left.length - 1]) {
+    return bSearch(right, target)
   } else {
+    const leftSearch = bSearch(left, target)
+    if (leftSearch === -1) return -1
     return leftSearch + minIdx
   }
+}
+
+const minSearch = function (nums) {
+  let begin = 0
+  let end = nums.length
+
+  while (begin <= end) {
+    let midIdx = 0
+    if (nums.length === 3) {
+      midIdx = Math.floor((begin + end) / 2)
+    } else {
+      midIdx = Math.ceil((begin + end) / 2)
+    }
+
+    const mid = nums[midIdx]
+    console.log(`mid: ${mid}, begin: ${begin}`)
+    if (mid <= nums[begin]) {
+      return midIdx
+    } else {
+      begin = midIdx + 1
+    }
+  }
+  return -1
 }
 
 const bSearch = function (nums, target) {
   let begin = 0
   let end = nums.length
-
+  if (nums.length === 1 && nums[0] === target) return 0
+  if (nums.length === 1 && nums[0] !== target) return -1
   while (begin <= end) {
     const midIdx = Math.ceil((begin + end) / 2)
     const mid = nums[midIdx]
@@ -48,24 +68,6 @@ const bSearch = function (nums, target) {
       begin = midIdx + 1
     } else {
       end = midIdx - 1
-    }
-  }
-
-  return -1
-}
-
-const minSearch = function (nums) {
-  let begin = 0
-  let end = nums.length
-
-  while (begin <= end) {
-    const midIdx = Math.ceil((begin + end) / 2)
-    const mid = nums[midIdx]
-    // console.log(`mid: ${mid}, begin: ${begin}`)
-    if (mid < nums[begin]) {
-      return midIdx
-    } else {
-      begin = midIdx + 1
     }
   }
   return -1
