@@ -72,3 +72,11 @@ const bSearch = function (nums, target) {
   }
   return -1
 }
+
+// brute force
+var searchBrute = function (nums, target) {
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] === target) return i
+  }
+  return -1
+}
