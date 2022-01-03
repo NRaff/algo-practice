@@ -19,17 +19,21 @@ var search = function (nums, target) {
   }
   const left = nums.slice(minIdx, nums.length)
   const right = nums.slice(0, minIdx)
-  const sorted = left.concat(right)
-  const sortedIdx = bSearch(sorted, target)
-  if (sortedIdx === -1) return -1
-  console.log(`Sorted: ${sortedIdx}, minIdx: ${minIdx}`)
-  if (sortedIdx === minIdx) {
-    return sortedIdx - minIdx
+  console.log(minIdx)
+  console.log(left)
+  console.log(right)
+  const leftSearch = bSearch(left, target)
+  if (leftSearch === -1) {
+    const rightSearch = bSearch(right, target)
+    if (rightSearch === -1) {
+      return -1
+    } else {
+      return rightSearch
+    }
   } else {
-    return sortedIdx + minIdx
+    return leftSearch + minIdx
   }
-};
-
+}
 
 const bSearch = function (nums, target) {
   let begin = 0
@@ -57,14 +61,12 @@ const minSearch = function (nums) {
   while (begin <= end) {
     const midIdx = Math.ceil((begin + end) / 2)
     const mid = nums[midIdx]
-
+    // console.log(`mid: ${mid}, begin: ${begin}`)
     if (mid < nums[begin]) {
       return midIdx
     } else {
-      begin = mid + 1
+      begin = midIdx + 1
     }
-
   }
-
   return -1
 }
