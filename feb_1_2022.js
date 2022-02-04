@@ -7,3 +7,23 @@ var sortedSquares = function (nums) {
 function compare(a, b) {
   return a - b
 }
+
+// * Rotate array in place
+var rotate = function (nums, k) {
+  // get the remaining number of rotations
+  let rotations = k > nums.length ? k % nums.length : k
+  // shift and unshift the array that many times
+  let i = 0
+  const len = nums.length
+  const results = []
+
+  while (i < nums.length) {
+    const newPos = (i + k) % len
+    results[newPos] = nums[i]
+    i++
+  }
+
+  results.forEach((item, idx) => {
+    nums[idx] = item
+  })
+};
