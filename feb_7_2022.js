@@ -40,6 +40,20 @@ var checkInclusion = function (s1, s2) {
   }
 };
 
+//* START OF CORRECT SOLUTION
+function withMaps(s1, s2) {
+  if (s1.length > s2.length) return false
+  const s1Map = Array(26).fill(0)
+  const s2Map = Array(26).fill(0)
+  for (let i = 0; i < s1.length; i++) {
+    s1Map[s1[i]]++;
+  }
+}
+
+
+
+
+//! INCORRECT
 function perms(strs, frozen = 0) {
   // swap each letter into the starting postion, recursively do that with the remaining letters and concatenate back onto the string
   // iterate over each character
